@@ -11,6 +11,7 @@
 #include "SDLMain.h"
 #include <sys/param.h> /* for MAXPATHLEN */
 #include <unistd.h>
+#include "startupchime.hpp"
 
 /* For some reaon, Apple removed setAppleMenu from the headers in 10.4,
  but the method still is there and works. To avoid warnings, we declare
@@ -220,10 +221,12 @@ static void CustomApplicationMain (int argc, char **argv)
     [NSApp setMainMenu:[[[NSMenu alloc] init] autorelease]];
     setApplicationMenu();
     setupWindowMenu();
-
+    
     /* Create SDLMain and make it the app delegate */
     sdlMain = [[SDLMain alloc] init];
     [NSApp setDelegate:sdlMain];
+    
+    PlayStartupChime();
     
     /* Start the main event loop */
     [NSApp run];
